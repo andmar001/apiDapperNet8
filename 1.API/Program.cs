@@ -1,6 +1,8 @@
 using _1.API.Extensions;
 using _2.Application.Extension;
 using _3.Infrastructure.Extensions;
+using _3.Infrastructure.Security;
+using WatchDog;
 
 var builder = WebApplication.CreateBuilder(args);
 var Configuration = builder.Configuration;
@@ -39,5 +41,15 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// WatchDog environment
+if (app.Environment.IsDevelopment())
+{
+    app.UseWatchDog(configuration =>
+    {
+        configuration.WatchPageUsername = FuncionesEncriptacionLogic.DecryptValue(Configuration.GetSection("WatchDog:Username").Value!);
+        configuration.WatchPagePassword = FuncionesEncriptacionLogic.DecryptValue(Configuration.GetSection("WatchDog:Password").Value!);
+    });
+}
 
 app.Run();

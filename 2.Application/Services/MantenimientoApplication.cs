@@ -26,12 +26,14 @@ namespace _2.Application.Services
 
                 if (mantenimiento is not null)
                 {
+                    response.Estatus = "OK";
                     response.CodigoEstatus = 200;
-                    response.ObjData = _mapper.Map<MantenimientoResponseDTO>(mantenimiento);
-                    response.Notificaciones = "Registro encontrado";
+                    response.ObjData = _mapper.Map<MantenimientoResponseDTO>(mantenimiento.Result.ObjData);
+                    response.Notificaciones = "En mantenimiento";
                 }
                 else
                 {
+                    response.Estatus = "OK";
                     response.CodigoEstatus = 202;
                     response.Notificaciones = "Sin registros";
                 }
@@ -39,6 +41,9 @@ namespace _2.Application.Services
             catch (Exception ex)
             {
                 response.ErrorMessage = $"Error: {ex.Message}";
+                response.Estatus = "FAILED";
+                response.CodigoEstatus = 400;
+                response.Notificaciones = "Ha ocurrido un error al obtener el estatus del mantenimiento. Contacte a soporte técnico.";
                 WatchLogger.Log(ex.Message);
             }
 
