@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root Proyecto="DES">
+	<dataBase name="PlantillaNet8">
+		<providerName>DAAAAAdnH8dIE2ITwvZfiRAAAAB/7ntY2rCLPYQ+0/G0pk9jslEZy1m9QU/ZUkUwrhovL4MmIF+H</providerName>
+		<!-- System.Data.SqlClient -->
+		<server>DAAAAEJD9htsHKKov81TuxAAAACYwJ5V4cM77+NfVVhqNnXWBTWsy2NQnHVq9E/75TE=</server>
+		<db>DAAAAMKp9GzqlclUjm0cuBAAAABSIXaR7ExNYM5B9vh9LHw8r87aF3T79slP75ZdaQ==</db>
+		<user>DAAAAHoId9Y8+rtFGXvc8xAAAADMdyRaioCWYKS36qUR5+dBNPrukwmPe4JrtOZ1og==</user>
+		<pass>DAAAANBvuFKjAId1RvUsgxAAAAC1KlctheQduEIYNM98HeDvDKNFxTjqNN7cK4RY</pass>
+		<application>DAAAABLcTCExB4SnrOYBRhAAAADrLKi0MKJOhRH9ubqg8604LsKdwbEI/zsTFuwAJchAvJMol/g=</application>
+		<timeOut>DAAAAHejQrd6Ghiqj8R9URAAAAAno6wqO+5Ps0MY5Q41mdL2hQ==</timeOut>
+		<!-- 0 -->
+	</dataBase>
+
+	<s3config name="s3config">
+		<accessKey></accessKey>
+		<secretKey></secretKey>
+		<bucket></bucket>
+		<region></region>
+		<url></url>
+	</s3config>
+</root>

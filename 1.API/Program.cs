@@ -1,9 +1,27 @@
+using _1.API.Extensions;
+using _2.Application.Extension;
+using _3.Infrastructure.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
+var Configuration = builder.Configuration;
+
+var Cors = "Cors";
+
+builder.Services.AddInjectionCorsCustom(Configuration, Cors);
 
 // Add services to the container.
+builder.Services.AddInjectionInfrastructure(Configuration); // Infrastructure
+builder.Services.AddInjectionApplication(Configuration);    // Application
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Si es valor NULL no enviarlo
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+});
+
+// Agregar autenticación JWT Bearer
+builder.Services.AddAuthentication(Configuration);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

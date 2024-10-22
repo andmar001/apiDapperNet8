@@ -1,4 +1,4 @@
-﻿namespace _2.Application.Common.Bases
+﻿namespace _4.Domain.Entities.Core
 {
     public class Paged<Model>
     {
