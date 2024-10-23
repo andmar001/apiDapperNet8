@@ -9,11 +9,11 @@ namespace _2.Application.Services
 {
     public class MantenimientoApplication : IMantenimientoApplication
     {
-        private readonly IMantenimientoRepository _repository;
+        private readonly IMantenimientoRepository _mantenimientoRepository;
         private readonly IMapper _mapper;
-        public MantenimientoApplication(IMantenimientoRepository repository, IMapper mapper)
+        public MantenimientoApplication(IMantenimientoRepository mantenimientoRepository, IMapper mapper)
         {
-            _repository = repository;
+            _mantenimientoRepository = mantenimientoRepository;
             _mapper = mapper;
         }
         public async Task<ResultSet<MantenimientoResponseDTO>> GetEstatusMantenimiento()
@@ -22,7 +22,7 @@ namespace _2.Application.Services
 
             try
             {
-                var mantenimiento = _repository.GetEstatusMantenimiento();
+                var mantenimiento = _mantenimientoRepository.GetEstatusMantenimiento();
 
                 if (mantenimiento is not null)
                 {

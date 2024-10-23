@@ -9,7 +9,8 @@
 
   <ItemGroup>
     <Folder Include="FileStorage\" />
-    <Folder Include="Helpers\" />
+    <Folder Include="Persistence\Interfaces\Usuario\" />
+    <Folder Include="Persistence\Repositories\Usuario\" />
   </ItemGroup>
 
   <ItemGroup>
