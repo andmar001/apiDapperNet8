@@ -20,13 +20,13 @@ namespace _2.Application.Services
             _datosJWTRepository = datosJWTRepository;
             _mapper = mapper;
         }
-        public async Task<ResultSet<UsuarioDTO>> LoginUsuario(UsuarioDTO usuarioDTO, LoginOauthDto loginOauthDto)
+        public async Task<ResultSet<UsuarioDTO>> LoginUsuario(LoginOauthDto loginOauthDto)
         {
             var response = new ResultSet<UsuarioDTO>();
 
             try
             {
-                var payload = await _datosJWTRepository.VerifyGoogleToken(usuarioDTO.Token);
+                var payload = await _datosJWTRepository.VerifyGoogleToken(loginOauthDto.Token);
 
                 if (payload != null)
                 {
@@ -35,8 +35,8 @@ namespace _2.Application.Services
                     long unixTime = ((DateTimeOffset)tiempoActual).ToUnixTimeSeconds();
                     if ((payload.Email != null) && (unixTime < ExpiraToken))
                     {
-                        usuarioDTO.Correo = payload.Email;
-                        var login = _authRepository.LoginUsuario(); // do async
+                        response.ObjData.Correo = payload.Email;
+                        var login = _authRepository.LoginUsuario();
                         response.ObjData = _mapper.Map<UsuarioDTO>(login.ObjData);
                         response.Estatus = login.Estatus;
                         response.CodigoEstatus = login.CodigoEstatus;

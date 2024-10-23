@@ -5,7 +5,7 @@ namespace _2.Application.Interfaces
 {
     public interface IAuthApplication
     {
-        public Task<ResultSet<UsuarioDTO>> LoginUsuario(UsuarioDTO usuarioDTO, LoginOauthDto loginOauthDto);
+        public Task<ResultSet<UsuarioDTO>> LoginUsuario(LoginOauthDto loginOauthDto);
         public Task<ResultSet<UsuarioCredencialesDTO>> LoginUsuarioCredenciales(UsuarioCredencialesDTO usuarioCredencialesDTO);
     }
 }

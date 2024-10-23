@@ -14,9 +14,9 @@ namespace _1.API.Controllers.Auth
             _authApplication = authApplication;        
         }
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync(UsuarioDTO usuarioDTO, LoginOauthDto loginOauthDto)
+        public async Task<IActionResult> LoginAsync(LoginOauthDto loginOauthDto)
         {
-            var response = await _authApplication.LoginUsuario(usuarioDTO,loginOauthDto);
+            var response = await _authApplication.LoginUsuario(loginOauthDto);
             return StatusCode(response.CodigoEstatus, response);
         }
         [HttpPost]
