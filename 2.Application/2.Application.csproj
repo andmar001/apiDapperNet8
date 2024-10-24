@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Common\**" />
+    <EmbeddedResource Remove="Common\**" />
+    <None Remove="Common\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="WatchDog.NET" Version="1.4.11" />
@@ -17,10 +23,6 @@
     <ProjectReference Include="..\3.Infrastructure\3.Infrastructure.csproj" />
     <ProjectReference Include="..\4.Domain\4.Domain.csproj" />
     <ProjectReference Include="..\5.Cryptography\5.Cryptography.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Common\Bases\" />
   </ItemGroup>
 
 </Project>

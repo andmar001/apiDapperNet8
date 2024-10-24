@@ -14,10 +14,10 @@ namespace _2.Application.Extensions.WatchDog
 
             services.AddWatchDogServices(options =>
             {
-                options.SetExternalDbConnString = conexion; // Set the connection string to the database
-                options.DbDriverOption = WatchDogDbDriverEnum.MSSQL; // Set the database provider
+                options.SetExternalDbConnString = conexion;                             //==> Set the connection string to the database
+                options.DbDriverOption = WatchDogDbDriverEnum.MSSQL;                    //==> Set the database provider
                 options.IsAutoClear = true;
-                options.ClearTimeSchedule = WatchDogAutoClearScheduleEnum.Monthly; // Clear every month
+                options.ClearTimeSchedule = WatchDogAutoClearScheduleEnum.Monthly;      //==> Clear every month
             });
 
             return services;

@@ -2,7 +2,7 @@
 {
     public class CorreoContraModel
     {
-        public string Correo { get; set; }
-        public string Contra { get; set; }
+        public string? Correo { get; set; }
+        public string? Contra { get; set; }
     }
 }

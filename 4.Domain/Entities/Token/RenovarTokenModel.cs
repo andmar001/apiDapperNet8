@@ -2,6 +2,6 @@
 {
     public class RenovarTokenModel
     {
-        public string OldToken { get; set; }
+        public string? OldToken { get; set; }
     }
 }

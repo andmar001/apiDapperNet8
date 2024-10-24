@@ -4,22 +4,22 @@
     {
         public int? TotalRows { get; set; }
         public int? TotalPages { get; set; }
-        public List<Model> ListResult { get; set; }
+        public List<Model>? ListResult { get; set; }
     }
 
     public class ResultSet<Model>
     {
         public int? id { get; set; }
         public int? RowsAffected { get; set; }
-        public string Estatus { get; set; } // OK | FAILED
+        public string? Estatus { get; set; } // OK | FAILED
         public int CodigoEstatus { get; set; } // CODIGO DE RESPUESTA HTTP
-        public string NombreArchivo { get; set; }
-        public string Notificaciones { get; set; }
-        public List<Model> Data { get; set; }
-        public Model ObjData { get; set; }
-        public Paged<Model> PagedData { get; set; }
-        public string ErrorMessage { get; set; }
-        public string token { get; set; }
+        public string? NombreArchivo { get; set; }
+        public string? Notificaciones { get; set; }
+        public List<Model>? Data { get; set; }
+        public Model? ObjData { get; set; }
+        public Paged<Model>? PagedData { get; set; }
+        public string? ErrorMessage { get; set; }
+        public string? token { get; set; }
     }
 
     public class Result<Model>
@@ -55,6 +55,17 @@
             res.ErrorMessage = null;
             res.CodigoEstatus = 200;
 
+            return res;
+        }
+
+        public ResultSet<Model> OkNoData(string msg)
+        {
+            ResultSet<Model> res = new ResultSet<Model>();
+            res.Estatus = "OK";
+            res.Notificaciones = msg;
+            res.Data = null;
+            res.PagedData = null;
+            res.CodigoEstatus = 202;
 
             return res;
         }

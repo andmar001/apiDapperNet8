@@ -2,8 +2,8 @@
 {
     public class FormatosDescargablesModel
     {
-        public string Archivo { get; set; }
-        public string Ruta { get; set; }
-        public string NombreArchivo { get; set; }
+        public string? Archivo { get; set; }
+        public string? Ruta { get; set; }
+        public string? NombreArchivo { get; set; }
     }
 }
