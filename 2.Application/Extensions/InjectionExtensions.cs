@@ -17,7 +17,7 @@ namespace _2.Application.Extension
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             // Inyección de servicios de la capa aplicación
-            //services.AddScoped<IMantenimientoApplication, MantenimientoApplication>();
+            services.AddScoped<IMantenimientoApplication, MantenimientoApplication>();
             services.AddScoped<IAuthApplication, AuthApplication>();
 
             services.AddWatchDog(configuration);

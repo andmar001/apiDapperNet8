@@ -4,6 +4,8 @@ using _3.Infrastructure.Helpers;
 using _3.Infrastructure.Persistence.Interfaces.Auth;
 using _3.Infrastructure.Persistence.Interfaces.JWT;
 using _4.Domain.Entities.Core;
+using _4.Domain.Entities.Token;
+using _4.Domain.Entities.Usuario;
 using AutoMapper;
 using WatchDog;
 
@@ -30,13 +32,17 @@ namespace _2.Application.Services
 
                 if (payload != null)
                 {
-                    long ExpiraToken = payload.ExpirationTimeSeconds.Value;
+                    long ExpiraToken = payload.ExpirationTimeSeconds!.Value;
                     DateTime tiempoActual = DateTime.UtcNow;
                     long unixTime = ((DateTimeOffset)tiempoActual).ToUnixTimeSeconds();
                     if ((payload.Email != null) && (unixTime < ExpiraToken))
                     {
-                        response.ObjData.Correo = payload.Email;
-                        var login = _authRepository.LoginUsuario();
+                        loginOauthDto.Correo = payload.Email;
+
+                        var email = _mapper.Map<LoginAuthModel>(loginOauthDto);
+
+                        var login = _authRepository.LoginUsuario(_mapper.Map<LoginAuthModel>(email));
+
                         response.ObjData = _mapper.Map<UsuarioDTO>(login.ObjData);
                         response.Estatus = login.Estatus;
                         response.CodigoEstatus = login.CodigoEstatus;
@@ -52,31 +58,33 @@ namespace _2.Application.Services
             }
             catch (Exception ex)
             {
-                response.ErrorMessage = $"Error: {ex.Message}";
                 response.Estatus = "FAILED";
                 response.CodigoEstatus = 400;
                 response.Notificaciones = "Ha ocurrido un error al obtener al loguearte con credenciales. Contacte a soporte técnico.";
+                response.ErrorMessage = $"Error: {ex.Message}";
                 WatchLogger.Log(ex.Message);
             }
-
             return response;
         }
 
-        public async Task<ResultSet<UsuarioCredencialesDTO>> LoginUsuarioCredenciales(UsuarioCredencialesDTO usuarioCredencialesDTO)
+        public async Task<ResultSet<UsuarioDTO>> LoginUsuarioCredenciales(UsuarioCredencialesDTO usuarioCredencialesDTO)
         {
-            var response = new ResultSet<UsuarioCredencialesDTO>();
+            var response = new ResultSet<UsuarioDTO>();
 
             try
             {
-                if (await _datosJWTRepository.IsCaptchaValid(Funciones.GetReToken(usuarioCredencialesDTO.reTkn)))
+                if (await _datosJWTRepository.IsCaptchaValid(Funciones.GetReToken(usuarioCredencialesDTO.reTkn!)))
                 {
-                    var usuario = _authRepository.LoginUsuarioCredenciales();
-                    if (usuario is not null)
+                    var loginMapper = _mapper.Map<UsuarioCredencialesModel>(usuarioCredencialesDTO);
+
+                    var login = _authRepository.LoginUsuarioCredenciales(loginMapper);
+
+                    if (login is not null)
                     {
-                        response.ObjData = _mapper.Map<UsuarioCredencialesDTO>(usuario);
-                        response.Estatus = usuario.Estatus;
-                        response.CodigoEstatus = usuario.CodigoEstatus;
-                        response.Notificaciones = usuario.Notificaciones;
+                        response.ObjData = _mapper.Map<UsuarioDTO>(login.ObjData);
+                        response.Estatus = login.Estatus;
+                        response.CodigoEstatus = login.CodigoEstatus;
+                        response.Notificaciones = login.Notificaciones;
                     }
                     else
                     {

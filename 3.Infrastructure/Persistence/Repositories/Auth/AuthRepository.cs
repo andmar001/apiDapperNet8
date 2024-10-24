@@ -3,6 +3,7 @@ using _3.Infrastructure.Persistence.Interfaces.Auth;
 using _3.Infrastructure.Persistence.Interfaces.Token;
 using _3.Infrastructure.Security;
 using _4.Domain.Entities.Core;
+using _4.Domain.Entities.Token;
 using _4.Domain.Entities.Usuario;
 using Dapper;
 using System.Data;
@@ -13,22 +14,17 @@ namespace _3.Infrastructure.Persistence.Repositories.Auth
     public class AuthRepository : IAuthRepository
     {
         private readonly ITokenRepository _tokenRepository;
-        public UsuarioModel Usuario { get; set; }
-        public UsuarioCredencialesModel UsuarioCredenciales { get; set; }
         public AuthRepository(ITokenRepository tokenRepository)
         {
             _tokenRepository = tokenRepository;
-            Usuario = new();
-            UsuarioCredenciales = new();
         }
-
-        public ResultSet<UsuarioModel> LoginUsuario()
+        public ResultSet<UsuarioModel> LoginUsuario(LoginAuthModel loginAuthModel)
         {
             FuncionesEncriptacionLogic fn = new();
             Result<UsuarioModel> result = new();
             ResultSet<UsuarioModel> resultSet = new();
             DynamicParameters parameters = new();
-            parameters.Add("@correoElectronico", Usuario.Correo);
+            parameters.Add("@correoElectronico", loginAuthModel.Correo);
 
             SqlClient? data = null;
             data = new SqlClient(ClsLogic._passPhrase, ClsLogic._dataBase);
@@ -74,7 +70,7 @@ namespace _3.Infrastructure.Persistence.Repositories.Auth
                     {
                         resultSet.Estatus = "FAILED";
                         resultSet.CodigoEstatus = 400;
-                        resultSet = result.Error("El usuario proporcionado no se encuentra registrado en el sitema.");
+                        resultSet = result.Error("El usuario proporcionado no se encuentra registrado en el sistema.");
                     }
                 }
                 catch (Exception ex)
@@ -92,16 +88,17 @@ namespace _3.Infrastructure.Persistence.Repositories.Auth
             return resultSet;
         }
 
-        public ResultSet<UsuarioModel> LoginUsuarioCredenciales()
+        public ResultSet<UsuarioModel> LoginUsuarioCredenciales(UsuarioCredencialesModel usuarioCredenciales)
         {
             Result<UsuarioModel> result = new();
             ResultSet<UsuarioModel> resultSet = new();
             DynamicParameters parameters = new();
 
-            string phrase = Funciones.GetPhrase(UsuarioCredenciales.reTkn);
-            parameters.Add("@usuario", FuncionesEncriptacionLogic.DecryptValueFront(UsuarioCredenciales.Usuario, phrase));
-            parameters.Add("@contra", FuncionesEncriptacionLogic.DecryptValueFront(UsuarioCredenciales.Contra, phrase));
+            string phrase = Funciones.GetPhrase(usuarioCredenciales.reTkn!);
 
+            parameters.Add("@usuario", FuncionesEncriptacionLogic.DecryptValueFront(usuarioCredenciales.Usuario!, phrase));
+            parameters.Add("@contra", FuncionesEncriptacionLogic.DecryptValueFront(usuarioCredenciales.Contra!, phrase));
+ 
             SqlClient? data = null;
             data = new SqlClient(ClsLogic._passPhrase, ClsLogic._dataBase);
             using (IDbConnection cnn = new SqlConnection(SqlClient._conexion?.ConnectionString))

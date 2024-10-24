@@ -15,14 +15,13 @@ builder.Services.AddInjectionCorsCustom(Configuration, Cors);
 builder.Services.AddInjectionInfrastructure(Configuration); // Infrastructure
 builder.Services.AddInjectionApplication(Configuration);    // Application
 
+builder.Services.AddAuthentication(Configuration);          // Authentication
+
 // Si es valor NULL no enviarlo
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
 });
-
-// Agregar autenticación JWT Bearer
-builder.Services.AddAuthentication(Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -2,6 +2,7 @@
 {
     public class LoginOauthDto
     {
-        public string Token { get; set; }
+        public string? Token { get; set; }
+        public string? Correo { get; set; }
     }
 }
