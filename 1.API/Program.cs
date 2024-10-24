@@ -9,13 +9,11 @@ var Configuration = builder.Configuration;
 
 var Cors = "Cors";
 
-builder.Services.AddInjectionCorsCustom(Configuration, Cors);
-
 // Add services to the container.
-builder.Services.AddInjectionInfrastructure(Configuration); // Infrastructure
-builder.Services.AddInjectionApplication(Configuration);    // Application
-
-builder.Services.AddAuthentication(Configuration);          // Authentication
+builder.Services.AddInjectionCorsCustom(Configuration, Cors);   // Cors
+builder.Services.AddInjectionInfrastructure(Configuration);     // Infrastructure
+builder.Services.AddInjectionApplication(Configuration);        // Application
+builder.Services.AddAuthentication(Configuration);              // Authentication
 
 // Si es valor NULL no enviarlo
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -23,8 +21,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
 });
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddEndpointsApiExplorer();                     // API Explorer
+builder.Services.AddSwagger();                                  // Swagger
 
 var app = builder.Build();
 
@@ -41,8 +39,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// WatchDog environment
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())                            // WatchDog 
 {
     app.UseWatchDog(configuration =>
     {

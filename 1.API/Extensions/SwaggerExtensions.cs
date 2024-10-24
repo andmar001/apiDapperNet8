@@ -9,7 +9,7 @@ namespace _1.API.Extensions
         {
             var openApi = new OpenApiInfo
             {
-                Title = "Dapper ORM API - Clean Arquitecture",
+                Title = "Dapper Micro ORM API - Clean Arquitecture",
                 Version = "v1",
                 Description = "API Desarrollada con Net Core 8 - 2024",
                 TermsOfService = new Uri("https://opensource.org/licenses/NIT"),
