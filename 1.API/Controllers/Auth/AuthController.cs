@@ -1,5 +1,6 @@
 ﻿using _2.Application.DTOs.Auth;
 using _2.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _1.API.Controllers.Auth
@@ -13,15 +14,17 @@ namespace _1.API.Controllers.Auth
         {
             _authApplication = authApplication;        
         }
+        [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync(LoginOauthDto loginOauthDto)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginOauthDto loginOauthDto)
         {
             var response = await _authApplication.LoginUsuario(loginOauthDto);
             return StatusCode(response.CodigoEstatus, response);
         }
+        [AllowAnonymous]
         [HttpPost]
         [Route("credenciales")]
-        public async Task<IActionResult> LoginUsuarioCredenciales(UsuarioCredencialesDTO usuarioCredenciales)
+        public async Task<IActionResult> LoginUsuarioCredenciales([FromBody] UsuarioCredencialesDTO usuarioCredenciales)
         {
             var response = await _authApplication.LoginUsuarioCredenciales(usuarioCredenciales);
             return StatusCode(response.CodigoEstatus, response);

@@ -1,8 +1,8 @@
 ﻿using _2.Application.DTOs.Auth;
 using _2.Application.Interfaces;
 using _3.Infrastructure.Helpers;
+using _3.Infrastructure.Persistence.Interfaces.Auth;
 using _3.Infrastructure.Persistence.Interfaces.JWT;
-using _3.Infrastructure.Persistence.Repositories.Auth;
 using _4.Domain.Entities.Core;
 using AutoMapper;
 using WatchDog;

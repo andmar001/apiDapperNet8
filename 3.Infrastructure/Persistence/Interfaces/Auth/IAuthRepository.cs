@@ -1,7 +1,7 @@
 ﻿using _4.Domain.Entities.Core;
 using _4.Domain.Entities.Usuario;
 
-namespace _3.Infrastructure.Persistence.Repositories.Auth
+namespace _3.Infrastructure.Persistence.Interfaces.Auth
 {
     public interface IAuthRepository
     {

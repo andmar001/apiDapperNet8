@@ -1,6 +1,6 @@
 ﻿using _3.Infrastructure.Helpers;
+using _3.Infrastructure.Persistence.Interfaces.Auth;
 using _3.Infrastructure.Persistence.Interfaces.Token;
-using _3.Infrastructure.Persistence.Repositories.Auth;
 using _3.Infrastructure.Security;
 using _4.Domain.Entities.Core;
 using _4.Domain.Entities.Usuario;
@@ -8,7 +8,7 @@ using Dapper;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace _3.Infrastructure.Persistence.Interfaces.Auth
+namespace _3.Infrastructure.Persistence.Repositories.Auth
 {
     public class AuthRepository : IAuthRepository
     {
@@ -141,7 +141,7 @@ namespace _3.Infrastructure.Persistence.Interfaces.Auth
                 }
                 catch (Exception ex)
                 {
-                    // ------------------------------------------------------------------------------
+                    // ------------------------------check if we save watchdog------------------------------------------------
                     resultSet.Estatus = "FAILED";
                     resultSet.CodigoEstatus = 400;
                     resultSet.Notificaciones = "Ha ocurrido un error al validar el usuario. Contacte a soporte técnico.";
