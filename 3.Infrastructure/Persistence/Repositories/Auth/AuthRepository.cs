@@ -8,6 +8,7 @@ using _4.Domain.Entities.Usuario;
 using Dapper;
 using System.Data;
 using System.Data.SqlClient;
+using BC = BCrypt.Net.BCrypt;
 
 namespace _3.Infrastructure.Persistence.Repositories.Auth
 {
@@ -98,7 +99,7 @@ namespace _3.Infrastructure.Persistence.Repositories.Auth
 
             parameters.Add("@usuario", FuncionesEncriptacionLogic.DecryptValueFront(usuarioCredenciales.Usuario!, phrase));
             parameters.Add("@contra", FuncionesEncriptacionLogic.DecryptValueFront(usuarioCredenciales.Contra!, phrase));
- 
+
             SqlClient? data = null;
             data = new SqlClient(ClsLogic._passPhrase, ClsLogic._dataBase);
             using (IDbConnection cnn = new SqlConnection(SqlClient._conexion?.ConnectionString))
@@ -117,6 +118,17 @@ namespace _3.Infrastructure.Persistence.Repositories.Auth
                         if (resultado == 0)
                         {
                             UsuarioModel? usuario = querys.Read<UsuarioModel>().FirstOrDefault();
+
+                            #region Validar password hasheado
+                            string password = FuncionesEncriptacionLogic.DecryptValueFront(usuarioCredenciales.Contra!, phrase);
+                            if (!BC.Verify(password, usuario!.Contra))
+                            {
+                                resultSet.Estatus = "FAILED";
+                                resultSet.CodigoEstatus = 400;
+                                resultSet = result.Error("La contraseña proporcionada no es correcta.");
+                            }
+                            #endregion Validar password hasheado
+
                             List<RolModel> roles = querys.Read<RolModel>().ToList();
                             usuario.ListaRoles = roles;
                             usuario.Token = _tokenRepository.GenerateTokenJwt(usuario.Nombre, "");

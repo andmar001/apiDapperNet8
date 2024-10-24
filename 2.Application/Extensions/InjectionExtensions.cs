@@ -19,6 +19,7 @@ namespace _2.Application.Extension
             // Inyección de servicios de la capa aplicación
             services.AddScoped<IMantenimientoApplication, MantenimientoApplication>();
             services.AddScoped<IAuthApplication, AuthApplication>();
+            services.AddScoped<IUserApplication, UserApplication>();
 
             services.AddWatchDog(configuration);
 

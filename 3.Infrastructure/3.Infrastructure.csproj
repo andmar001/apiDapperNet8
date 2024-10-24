@@ -9,11 +9,10 @@
 
   <ItemGroup>
     <Folder Include="FileStorage\" />
-    <Folder Include="Persistence\Interfaces\Usuario\" />
-    <Folder Include="Persistence\Repositories\Usuario\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Google.Apis" Version="1.68.0" />
     <PackageReference Include="Google.Apis.Auth" Version="1.68.0" />

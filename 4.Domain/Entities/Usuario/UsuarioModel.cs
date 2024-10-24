@@ -6,7 +6,10 @@
         public int? IdUsuario { get; set; }
         public Guid UUIDUsuario { get; set; }
         public string Nombre { get; set; }
+        public string PrimerApellido { get; set; }
+        public string SegundoApellido { get; set; }
         public string Correo { get; set; }
+        public string Cuenta { get; set; }
         public string Contra { get; set; }
         public bool? Estatus { get; set; }
         public List<RolModel> ListaRoles { get; set; }
